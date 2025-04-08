@@ -1,8 +1,8 @@
 /* Root Variables */
 :root {
-    --primary: #4a90e2;
-    --primary-dark: #357abd;
-    --primary-light: #6ba7e8;
+    --primary: #4a1d86;
+    --primary-dark: #3a1670;
+    --primary-light: #6a2ab8;
     --secondary: #f39c12;
     --secondary-dark: #d68910;
     --secondary-light: #f5b84d;
@@ -85,13 +85,13 @@ body {
     align-items: center;
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+    background: linear-gradient(135deg, var(--background) 0%, var(--primary-dark) 100%);
 }
 
 .welcome-section h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -139,7 +139,7 @@ header {
 
 header h1 {
     font-size: 1.8rem;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -150,7 +150,7 @@ header h1 {
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
@@ -159,15 +159,17 @@ header h1 {
     gap: 0.5rem;
     transition: var(--transition);
     outline: none;
+    box-shadow: 0 2px 4px rgba(74, 29, 134, 0.2);
 }
 
 .btn:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(74, 29, 134, 0.3);
 }
 
 .btn:focus {
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.5);
+    box-shadow: 0 0 0 3px rgba(74, 29, 134, 0.5);
 }
 
 .btn:active {
