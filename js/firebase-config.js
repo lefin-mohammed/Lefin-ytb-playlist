@@ -31,15 +31,13 @@ try {
     auth = firebase.auth();
     db = firebase.firestore();
     
-    // Configure Firestore settings with proper error handling
+    // Configure Firestore settings
     db.settings({
         cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
         merge: true
-    }).catch(error => {
-        console.error('Error configuring Firestore:', error);
     });
     
-    // Enable offline persistence with error handling
+    // Enable offline persistence
     db.enablePersistence()
         .catch((err) => {
             if (err.code === 'failed-precondition') {
