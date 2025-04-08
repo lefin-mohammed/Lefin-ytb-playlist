@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A web application to manage your YouTube video watchlist">
+    <title>Video Watchlist</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen" role="alert" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Welcome Section -->
+    <div id="welcome-section" class="welcome-section">
+        <h1>Watch. Learn. Grow.</h1>
+        <p>Your YouTube library, handpicked for personal growth in one place.</p>
+        <button id="welcome-login-btn" class="btn" aria-label="Sign in with Google">
+            <i class="fab fa-google" aria-hidden="true"></i> Sign in with Google
+        </button>
+        <div class="welcome-credit">Built by Lefin</div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <header>
+            <h1>Video Watchlist</h1>
+            <div class="auth-buttons">
+                <button id="main-login-btn" class="btn" aria-label="Sign in with Google">
+                    <i class="fab fa-google" aria-hidden="true"></i> Sign in with Google
+                </button>
+                <button id="logoutBtn" class="btn" style="display: none;" aria-label="Sign out">
+                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search videos..." aria-label="Search videos">
+            </div>
+
+            <div class="category-filter" role="tablist" aria-label="Video categories">
+                <button class="category-btn active" data-category="all" role="tab" aria-selected="true">All</button>
+                <button class="category-btn" data-category="tech" role="tab" aria-selected="false">Tech</button>
+                <button class="category-btn" data-category="business" role="tab" aria-selected="false">Business</button>
+                <button class="category-btn" data-category="health" role="tab" aria-selected="false">Health</button>
+                <button class="category-btn" data-category="other" role="tab" aria-selected="false">Other</button>
+            </div>
+
+            <div class="add-video-container">
+                <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" aria-label="YouTube video URL">
+                <select id="category" aria-label="Video category">
+                    <option value="tech">Tech</option>
+                    <option value="business">Business</option>
+                    <option value="health">Health</option>
+                    <option value="other">Other</option>
+                </select>
+                <button id="addVideoBtn" class="btn" aria-label="Add video">Add Video</button>
+            </div>
+
+            <div id="videoList" class="video-list" role="list" aria-label="Video watchlist"></div>
+        </main>
+
+        <footer>
+            <p>Built by Lefin</p>
+            <div class="footer-links">
+                <a href="mailto:lefinmohammed@gmail.com" target="_blank" aria-label="Send email to Lefin">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/lefin-mohammed-562950213?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="Visit Lefin's LinkedIn profile">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
