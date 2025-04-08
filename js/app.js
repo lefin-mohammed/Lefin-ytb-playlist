@@ -88,6 +88,7 @@ function initializeDOMElements() {
     welcomeSection = document.getElementById('welcome-section');
     mainContent = document.getElementById('main-content');
     loginBtn = document.getElementById('welcome-login-btn');
+    const mainLoginBtn = document.getElementById('main-login-btn');
     logoutBtn = document.getElementById('logoutBtn');
     addVideoBtn = document.getElementById('addVideoBtn');
     searchInput = document.getElementById('searchInput');
@@ -100,6 +101,7 @@ function initializeDOMElements() {
         welcomeSection,
         mainContent,
         loginBtn,
+        mainLoginBtn,
         logoutBtn,
         addVideoBtn,
         searchInput,
@@ -111,6 +113,17 @@ function initializeDOMElements() {
         if (!element) {
             console.error(`Element not found: ${name}`);
         }
+    }
+
+    // Set up event listeners for both login buttons
+    if (loginBtn) {
+        loginBtn.addEventListener('click', handleGoogleSignIn);
+    }
+    if (mainLoginBtn) {
+        mainLoginBtn.addEventListener('click', handleGoogleSignIn);
+    }
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleSignOut);
     }
 }
 
@@ -136,24 +149,28 @@ function hideLoadingScreen() {
 
 // Set up event listeners
 function setupEventListeners() {
-    // Authentication buttons
-    document.getElementById('welcome-login-btn').addEventListener('click', handleGoogleSignIn);
-    document.getElementById('main-login-btn').addEventListener('click', handleGoogleSignIn);
-    document.getElementById('logoutBtn').addEventListener('click', handleSignOut);
-    
-    // Video management
-    document.getElementById('addVideoBtn').addEventListener('click', addVideo);
-    document.getElementById('searchInput').addEventListener('input', debounce(handleSearch, 300));
-    
-    // Category filter
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            filterVideos(button.dataset.category);
+    if (addVideoBtn) {
+        addVideoBtn.addEventListener('click', addVideo);
+    }
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
+    if (categoryFilter) {
+        categoryFilter.addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-btn')) {
+                const category = e.target.dataset.category;
+                filterVideos(category);
+                
+                // Update active state
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+                e.target.classList.add('active');
+                e.target.setAttribute('aria-selected', 'true');
+            }
         });
-    });
+    }
 }
 
 // Handle Google Sign In
