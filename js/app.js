@@ -176,33 +176,30 @@ function setupEventListeners() {
 // Handle Google Sign In
 async function handleGoogleSignIn() {
     try {
-        showLoadingScreen();
+        const { auth } = window.firebaseServices;
         const provider = new firebase.auth.GoogleAuthProvider();
         await auth.signInWithPopup(provider);
-        hideLoadingScreen();
     } catch (error) {
         console.error('Error signing in with Google:', error);
-        hideLoadingScreen();
-        showMessage(`Sign in failed: ${error.message}`, 'error');
+        showMessage('Error signing in with Google', 'error');
     }
 }
 
 // Handle Sign Out
 async function handleSignOut() {
     try {
-        showLoadingScreen();
+        const { auth } = window.firebaseServices;
         await auth.signOut();
-        hideLoadingScreen();
     } catch (error) {
         console.error('Error signing out:', error);
-        hideLoadingScreen();
-        showMessage(`Sign out failed: ${error.message}`, 'error');
+        showMessage('Error signing out', 'error');
     }
 }
 
 // Add video to watchlist
 async function addVideo() {
     try {
+        const { auth, db } = window.firebaseServices;
         const videoUrl = document.getElementById('videoUrl').value.trim();
         const category = document.getElementById('category').value;
         
@@ -316,6 +313,7 @@ async function addVideo() {
 // Load videos from Firestore
 async function loadVideos() {
     try {
+        const { auth, db } = window.firebaseServices;
         showLoadingScreen();
         
         const snapshot = await db.collection('videos')
@@ -387,6 +385,7 @@ function displayVideos(videos) {
 // Toggle watched status
 async function toggleWatchedStatus(videoId) {
     try {
+        const { db } = window.firebaseServices;
         const videoRef = db.collection('videos').doc(videoId);
         const video = await videoRef.get();
         
@@ -411,6 +410,7 @@ async function toggleWatchedStatus(videoId) {
 // Delete video
 async function deleteVideo(videoId) {
     try {
+        const { db } = window.firebaseServices;
         if (!confirm('Are you sure you want to delete this video?')) {
             return;
         }
