@@ -9,7 +9,6 @@ const RATE_LIMIT = {
 };
 
 // DOM Elements
-let auth, db;
 let loadingScreen, welcomeSection, mainContent;
 let loginBtn, logoutBtn, addVideoBtn, searchInput;
 let videoList, categoryFilter;
@@ -27,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Set timeout to hide loading screen after 5 seconds (fallback)
         const loadingTimeout = setTimeout(() => {
+            console.log('Loading timeout reached, hiding loading screen');
             hideLoadingScreen();
             showMessage('Application loaded with limited functionality', 'warning');
         }, 5000);
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Listen for Firebase initialization errors
         window.addEventListener('firebaseInitError', (event) => {
             console.error('Firebase initialization error:', event.detail);
+            clearTimeout(loadingTimeout);
             hideLoadingScreen();
             showMessage('Error connecting to database. Some features may be limited.', 'error');
         });
@@ -41,14 +42,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Check if Firebase services are available
         if (!window.firebaseServices) {
             console.error('Firebase services not initialized');
+            clearTimeout(loadingTimeout);
             hideLoadingScreen();
             showMessage('Error: Firebase services not available', 'error');
             return;
         }
 
         // Get Firebase services
-        auth = window.firebaseServices.auth;
-        db = window.firebaseServices.db;
+        const { auth, db } = window.firebaseServices;
         
         // Set up authentication state observer
         auth.onAuthStateChanged((user) => {
@@ -57,18 +58,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             hideLoadingScreen();
             
             if (user) {
-                document.getElementById('welcome-section').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                document.getElementById('welcome-login-btn').style.display = 'none';
-                document.getElementById('main-login-btn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'block';
+                welcomeSection.style.display = 'none';
+                mainContent.style.display = 'block';
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'block';
                 loadVideos();
             } else {
-                document.getElementById('welcome-section').style.display = 'flex';
-                document.getElementById('main-content').style.display = 'none';
-                document.getElementById('welcome-login-btn').style.display = 'block';
-                document.getElementById('main-login-btn').style.display = 'block';
-                document.getElementById('logoutBtn').style.display = 'none';
+                welcomeSection.style.display = 'flex';
+                mainContent.style.display = 'none';
+                loginBtn.style.display = 'block';
+                logoutBtn.style.display = 'none';
             }
         });
 
@@ -84,6 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Initialize DOM elements
 function initializeDOMElements() {
+    console.log('Initializing DOM elements');
     loadingScreen = document.getElementById('loading-screen');
     welcomeSection = document.getElementById('welcome-section');
     mainContent = document.getElementById('main-content');
@@ -93,19 +93,44 @@ function initializeDOMElements() {
     searchInput = document.getElementById('searchInput');
     videoList = document.getElementById('videoList');
     categoryFilter = document.querySelector('.category-filter');
+
+    // Verify all elements are found
+    const elements = {
+        loadingScreen,
+        welcomeSection,
+        mainContent,
+        loginBtn,
+        logoutBtn,
+        addVideoBtn,
+        searchInput,
+        videoList,
+        categoryFilter
+    };
+
+    for (const [name, element] of Object.entries(elements)) {
+        if (!element) {
+            console.error(`Element not found: ${name}`);
+        }
+    }
 }
 
 // Show loading screen
 function showLoadingScreen() {
+    console.log('Showing loading screen');
     if (loadingScreen) {
         loadingScreen.style.display = 'flex';
+    } else {
+        console.error('Loading screen element not found');
     }
 }
 
 // Hide loading screen
 function hideLoadingScreen() {
+    console.log('Hiding loading screen');
     if (loadingScreen) {
         loadingScreen.style.display = 'none';
+    } else {
+        console.error('Loading screen element not found');
     }
 }
 
