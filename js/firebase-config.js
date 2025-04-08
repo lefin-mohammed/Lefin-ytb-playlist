@@ -1,11 +1,11 @@
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyC0lC3rl1sV_reqVMBxzdKBqZtwBWuJl-Y",
-    authDomain: "video-watchlist-7f0c9.firebaseapp.com",
-    projectId: "video-watchlist-7f0c9",
-    storageBucket: "video-watchlist-7f0c9.appspot.com",
-    messagingSenderId: "1234567890",
-    appId: "1:1234567890:web:abcdef1234567890"
+    apiKey: "AIzaSyCfflktTztiZqZRSroiqkuzajtAX3wvo6o",
+    authDomain: "videowatchlist-3a64c.firebaseapp.com",
+    projectId: "videowatchlist-3a64c",
+    storageBucket: "videowatchlist-3a64c.firebasestorage.app",
+    messagingSenderId: "459001017752",
+    appId: "1:459001017752:web:cdd4844e085f663f39a7ed"
 };
 
 console.log('Starting Firebase initialization...');
